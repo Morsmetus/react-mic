@@ -57,7 +57,7 @@ export class MicrophoneRecorder {
         }
       }
     } else if (navigator.mediaDevices) {
-      console.log('getUserMedia supported.');
+      // console.log('getUserMedia supported.');
       navigator.mediaDevices
         .getUserMedia(constraints)
         .then(str => {
@@ -161,7 +161,7 @@ export class MicrophoneRecorderMp3 {
         }
       }
     } else if (navigator.mediaDevices) {
-      console.log('getUserMedia supported.');
+      // console.log('getUserMedia supported.');
       navigator.mediaDevices
         .getUserMedia(constraints)
         .then(async str => {
@@ -202,6 +202,9 @@ export class MicrophoneRecorderMp3 {
 
   stopRecording(blob) {
     if (mediaRecorder) {
+      stream.getAudioTracks().forEach(track => {
+        track.stop();
+      });
       mediaRecorder.stopTracks();
       AudioContext.resetAnalyser();
       this.onStop();
