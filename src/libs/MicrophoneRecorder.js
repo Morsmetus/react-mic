@@ -27,11 +27,12 @@ navigator.getUserMedia =
   navigator.msGetUserMedia;
 
 export class MicrophoneRecorder {
-  constructor(onStart, onStop, onSave, onData, options) {
+  constructor(onStart, onStop, onSave, onData, onError, options) {
     onStartCallback = onStart;
     onStopCallback = onStop;
     onSaveCallback = onSave;
     onDataCallback = onData;
+    onErrorCallback = onError;
     mediaOptions = options;
   }
 
@@ -95,7 +96,7 @@ export class MicrophoneRecorder {
         })
         .catch(error => console.log(JSON.stringify(error, 2, null)));
     } else {
-      alert('Your browser does not support audio recording');
+      onErrorCallback("Your browser does not support audio recording");
     }
   };
 
@@ -131,11 +132,12 @@ export class MicrophoneRecorder {
 }
 
 export class MicrophoneRecorderMp3 {
-  constructor(onStart, onStop, onSave, onData, options) {
+  constructor(onStart, onStop, onSave, onData, onError, options) {
     onStartCallback = onStart;
     onStopCallback = onStop;
     onSaveCallback = onSave;
     onDataCallback = onData;
+    onErrorCallback = onError;
     mediaOptions = options;
   }
 
@@ -196,7 +198,7 @@ export class MicrophoneRecorderMp3 {
         })
         .catch(error => console.log(JSON.stringify(error, 2, null)));
     } else {
-      alert('Your browser does not support audio recording');
+      onErrorCallback("Your browser does not support audio recording");
     }
   };
 
