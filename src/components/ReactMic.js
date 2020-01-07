@@ -29,6 +29,7 @@ export default class ReactMic extends Component {
       onStop,
       onStart,
       onData,
+      onError,
       audioElem,
       audioBitsPerSecond,
       mimeType,
@@ -63,6 +64,7 @@ export default class ReactMic extends Component {
                               onStop,
                               onSave,
                               onData,
+                              onError,
                               options
                             ),
         canvas: canvas,
@@ -124,6 +126,7 @@ ReactMic.propTypes = {
   record          : bool.isRequired,
   onStop          : func,
   onData          : func,
+  onError         : func,
   bufferSize      : oneOf([0, 256, 512, 1024, 2048, 4096, 8192, 16384]),
   sampleRate      : number,
   recorderParams  : object,
