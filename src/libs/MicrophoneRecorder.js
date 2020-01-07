@@ -16,7 +16,6 @@ let onStartCallback;
 let onStopCallback;
 let onSaveCallback;
 let onDataCallback;
-let onErrorCallback;
 let timeInterval;
 const shimURL = 'https://unpkg.com/wasm-polyfill.js@0.2.0/wasm-polyfill.js';
 const constraints = { audio: true }; // constraints - only audio needed
@@ -28,12 +27,11 @@ navigator.getUserMedia =
   navigator.msGetUserMedia;
 
 export class MicrophoneRecorder {
-  constructor(onStart, onStop, onSave, onData, onError, options) {
+  constructor(onStart, onStop, onSave, onData, options) {
     onStartCallback = onStart;
     onStopCallback = onStop;
     onSaveCallback = onSave;
     onDataCallback = onData;
-    onErrorCallback = onError;
     mediaOptions = options;
   }
 
@@ -97,9 +95,6 @@ export class MicrophoneRecorder {
         })
         .catch(error => console.log(JSON.stringify(error, 2, null)));
     } else {
-      if(onErrorCallback){
-        onErrorCallback("Your browser does not support audio recording");
-      }
       alert('Your browser does not support audio recording');
     }
   };
@@ -136,12 +131,11 @@ export class MicrophoneRecorder {
 }
 
 export class MicrophoneRecorderMp3 {
-  constructor(onStart, onStop, onSave, onData, onError, options) {
+  constructor(onStart, onStop, onSave, onData, options) {
     onStartCallback = onStart;
     onStopCallback = onStop;
     onSaveCallback = onSave;
     onDataCallback = onData;
-    onErrorCallback = onError;
     mediaOptions = options;
   }
 
@@ -202,9 +196,6 @@ export class MicrophoneRecorderMp3 {
         })
         .catch(error => console.log(JSON.stringify(error, 2, null)));
     } else {
-      if(onErrorCallback){
-        onErrorCallback("Your browser does not support audio recording");
-      }
       alert('Your browser does not support audio recording');
     }
   };
