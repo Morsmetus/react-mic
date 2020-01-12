@@ -21,6 +21,7 @@ export default class ReactMic extends Component {
       canvasCtx           : null
     }
     this.visualizer = React.createRef();
+    this.drawer = null;
   }
 
   componentDidMount() {
@@ -80,11 +81,11 @@ export default class ReactMic extends Component {
     const { canvas, canvasCtx } = this.state;
 
     if(visualSetting === 'sinewave') {
-      VisualizerMain.visualizeSineWave(canvasCtx, canvas, width, height, backgroundColor, strokeColor);
+      this.drawer = VisualizerMain.visualizeSineWave(canvasCtx, canvas, width, height, backgroundColor, strokeColor);
     } else if(visualSetting === 'frequencyBars') {
-      VisualizerMain.visualizeFrequencyBars(canvasCtx, canvas, width, height, backgroundColor, strokeColor);
+      this.drawer = VisualizerMain.visualizeFrequencyBars(canvasCtx, canvas, width, height, backgroundColor, strokeColor);
     } else if(visualSetting === 'frequencyCircles') {
-      VisualizerMain.visualizeFrequencyCircles(canvasCtx, canvas, width, height, backgroundColor, strokeColor);
+      this.drawer = VisualizerMain.visualizeFrequencyCircles(canvasCtx, canvas, width, height, backgroundColor, strokeColor);
     }
 
   }
@@ -106,6 +107,9 @@ export default class ReactMic extends Component {
     } else {
       if (microphoneRecorder) {
         microphoneRecorder.stopRecording(onStop);
+        if(this.drawer) {
+          this.drawer();
+        }
         this.clear();
       }
     }

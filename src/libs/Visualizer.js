@@ -7,13 +7,19 @@ const VisualizerComponent = {
 
   visualizeSineWave(canvasCtx, canvas, width, height, backgroundColor, strokeColor) {
     let analyser = AudioContext.getAnalyser();
+    let running = true;
 
     const bufferLength = analyser.fftSize;
     const dataArray = new Uint8Array(bufferLength);
 
     canvasCtx.clearRect(0, 0, width, height);
 
+    function stop() {
+      running = false;
+    }
+
     function draw() {
+      if(!running) return;
 
       drawVisual = requestAnimationFrame(draw);
 
@@ -50,10 +56,14 @@ const VisualizerComponent = {
     };
 
     draw();
+
+    return stop;
   },
 
   visualizeFrequencyBars(canvasCtx, canvas, width, height, backgroundColor, strokeColor) {
     const self = this;
+    let running = true;
+
     let analyser = AudioContext.getAnalyser();
     analyser.fftSize = 256;
     const bufferLength = analyser.frequencyBinCount;
@@ -61,7 +71,12 @@ const VisualizerComponent = {
 
     canvasCtx.clearRect(0, 0, width, height);
 
+    function stop() {
+      running = false;
+    }
+
     function draw() {
+      if(!running) return;
       drawVisual = requestAnimationFrame(draw);
 
       analyser = AudioContext.getAnalyser();
@@ -88,10 +103,13 @@ const VisualizerComponent = {
     };
 
     draw();
+
+    return stop;
   },
 
   visualizeFrequencyCircles(canvasCtx, canvas, width, height, backgroundColor, strokeColor) {
     const self = this;
+    let running = true;
     let analyser = AudioContext.getAnalyser();
     analyser.fftSize = 32;
     const bufferLength = analyser.frequencyBinCount;
@@ -99,8 +117,12 @@ const VisualizerComponent = {
     const dataArray = new Uint8Array(bufferLength);
     canvasCtx.clearRect(0, 0, width, height);
 
-    function draw() {
+    function stop() {
+      running = false;
+    }
 
+    function draw() {
+      if(!running) return;
       drawVisual = requestAnimationFrame(draw);
       analyser = AudioContext.getAnalyser();
       analyser.getByteFrequencyData(dataArray);
@@ -132,6 +154,8 @@ const VisualizerComponent = {
       }
     };
     draw();
+
+    return stop;
   },
 
 
